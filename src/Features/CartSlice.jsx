@@ -67,7 +67,7 @@ const cartSlice = createSlice({
       localStorage.setItem('itemsArray', JSON.stringify(state.newCartItems));
     },
     calculateTotal: (state) => {
-      state.newCartItems = JSON.parse(localStorage.getItem('itemsArray') || []);
+      state.newCartItems = JSON.parse(localStorage.getItem('itemsArray')) || [];
 
       let amount = 0;
       let total = 0;
