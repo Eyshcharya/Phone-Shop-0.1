@@ -32,14 +32,12 @@ const cartSlice = createSlice({
     },
 
     clearCart: ({ newCartItems }) => {
-      newCartItems = JSON.parse(localStorage.getItem('itemsArray') || []);
       newCartItems = [];
       localStorage.setItem('itemsArray', JSON.stringify(newCartItems));
     },
     removeItem: (state, action) => {
       const itemID = action.payload;
 
-      state.newCartItems = JSON.parse(localStorage.getItem('itemsArray') || []);
       state.newCartItems = state.newCartItems.filter(
         (item) => item.id !== itemID
       );
@@ -47,8 +45,6 @@ const cartSlice = createSlice({
       console.log(itemID);
     },
     addItem: (state, { payload }) => {
-      state.newCartItems = JSON.parse(localStorage.getItem('itemsArray') || []);
-
       const cartItem = state.newCartItems.find(
         (item) => item.id === payload.id
       );
@@ -57,8 +53,6 @@ const cartSlice = createSlice({
       localStorage.setItem('itemsArray', JSON.stringify(state.newCartItems));
     },
     reduceItem: (state, { payload }) => {
-      state.newCartItems = JSON.parse(localStorage.getItem('itemsArray') || []);
-
       const cartItem = state.newCartItems.find(
         (item) => item.id === payload.id
       );
@@ -67,15 +61,12 @@ const cartSlice = createSlice({
       localStorage.setItem('itemsArray', JSON.stringify(state.newCartItems));
     },
     calculateTotal: (state) => {
-      state.newCartItems = JSON.parse(localStorage.getItem('itemsArray')) || [];
-
       let amount = 0;
       let total = 0;
       state.newCartItems.forEach((item) => {
         amount += item.amount;
         total += item.amount * item.price;
       });
-      localStorage.setItem('itemsArray', JSON.stringify(state.newCartItems));
 
       state.amount = amount;
       state.total = total;
